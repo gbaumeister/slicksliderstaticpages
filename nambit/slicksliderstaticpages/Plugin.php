@@ -25,19 +25,6 @@ class Plugin extends PluginBase
     
     public function registerSettings()
     {
-        return [
-            'nambit_slicksliderstaticpages' => [
-                'label'       => 'Slide Show Settings',
-                'description' => 'Manage Pages to add Slideshows.',
-                'category'    => 'Slide Shows',
-                'icon'        => 'icon-cog',
-                'class'       => 'Nambit\SlickSliderStaticPages\Models\Settings',
-                'order'       => 505,
-                'permissions' => ['peterhegman.slickslider.manage_slide_shows'],
-                'keywords'    => 'slide show settings'
-            ],
-
-        ];
     }
     
     public function injectSliderFields()
@@ -49,19 +36,21 @@ class Plugin extends PluginBase
             ) {
                 return;
             }
+            $componentClassName = \Nambit\SlickSliderStaticPages\Components\PageSlider::class;
+            if($widget->model->getLayoutObject()->hasComponent($componentClassName) !== false) {
 
+                $slideshows = \PeterHegman\SlickSlider\Models\SlideShows::pluck('slide_show_title', 'id');
 
-            $slideshows = \PeterHegman\SlickSlider\Models\SlideShows::pluck('slide_show_title', 'id');
-
-            $widget->addTabFields([
-                'viewBag[slide_show]' => [
-                    'tab' => 'Slider',
-                    'label' => 'Slideshow to display',
-                    'comment' => 'Select the slider to be dislayed',
-                    'type' => 'dropdown',
-                    'options' => $slideshows
-                ]
-            ]);
+                $widget->addTabFields([
+                    'viewBag[slide_show]' => [
+                        'tab' => 'Slider',
+                        'label' => 'Slideshow to display',
+                        'comment' => 'Select the slider to be dislayed',
+                        'type' => 'dropdown',
+                        'options' => $slideshows
+                    ]
+                ]);
+            }
         });
     }
     

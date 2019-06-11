@@ -1,0 +1,6 @@
+plugin:
+    name: 'nambit.slicksliderstaticpages::lang.plugin.name'
+    description: 'nambit.slicksliderstaticpages::lang.plugin.description'
+    author: Nambit
+    icon: oc-icon-sliders
+    homepage: ''
